@@ -1,0 +1,18 @@
+product_id,name,price,brand,category,vendor
+P001,Nike Air Runner,89.99,Nike,Footwear,Metro Wholesale
+P002,Nike Court Sneakers,74.50,Nike,Footwear,Prime Traders
+P003,Nike Sports Socks,12.00,Nike,Footwear,Metro Wholesale
+P004,Samsung Galaxy Phone,599.00,Samsung,Electronics,Prime Traders
+P005,Samsung Smart TV,449.00,Samsung,Electronics,Global Imports
+P006,Samsung Earbuds,99.00,Samsung,Electronics,Prime Traders
+P007,Sony Headphones,129.00,Sony,Electronics,Global Imports
+P008,Sony Bluetooth Speaker,79.00,Sony,Electronics,Metro Wholesale
+P009,Banana Chips,3.50,FreshFarm,Grocery,Sunrise Supplies
+P010,Banana Protein Bar,2.75,FreshFarm,Grocery,Sunrise Supplies
+P011,Organic Oats,5.25,FreshFarm,Grocery,Sunrise Supplies
+P012,Banana Face Mask,8.99,GlowCo,Beauty,Global Imports
+P013,Banana Hair Shampoo,11.49,GlowCo,Beauty,Prime Traders
+P014,Aloe Vera Gel,6.99,GlowCo,Beauty,Global Imports
+P015,Banana Scented Candle,14.00,HomeNest,Home,Sunrise Supplies
+P016,Ceramic Coffee Mug,9.50,HomeNest,Home,Metro Wholesale
+P017,Table Lamp,34.00,HomeNest,Home,Prime Traders
