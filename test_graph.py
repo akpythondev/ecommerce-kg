@@ -37,7 +37,7 @@ assert names(r) == ["Banana Chips", "Banana Protein Bar", "Organic Oats"], names
 
 try:
     run_query(g, {"return_type": "Robot", "constraints": []})
-    raise AssertionError("should have failed")
+    raise AssertionError("should failed")
 except ValueError:
     pass
 

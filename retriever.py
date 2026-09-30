@@ -1,19 +1,3 @@
-"""
-Retrieval layer. Runs a structured graph query (a small JSON spec that the LLM writes)
-against the NetworkX graph and returns plain data.
-
-Query spec format:
-{
-  "return_type": "Product",                      # what we want back
-  "constraints": [                               # each one is an anchor node + path to the result
-      {"node_type": "Brand", "name": "Nike", "path": ["MADE_BY"]},
-      {"node_type": "Vendor", "name": "Metro Wholesale", "path": ["SUPPLIES"]}
-  ],
-  "name_contains": null                          # optional text filter on result names, e.g. "banana"
-}
-All constraints must match (AND). The walking direction of each relationship
-is worked out automatically from RELATIONSHIPS, so the LLM only names the relations.
-"""
 from graph_builder import RELATIONSHIPS
 
 NODE_TYPES = {"Product", "Brand", "Category", "Vendor", "Customer", "Order"}
@@ -21,7 +5,6 @@ MAX_ROWS = 50
 
 
 def find_nodes(g, node_type, name):
-    """Find nodes by type and name (exact match first, then 'contains')."""
     name = name.lower().strip()
     same_type = [(n, d) for n, d in g.nodes(data=True) if d["node_type"] == node_type]
     exact = [n for n, d in same_type if d["name"].lower() == name]
@@ -31,7 +14,6 @@ def find_nodes(g, node_type, name):
 
 
 def take_step(g, nodes, relation):
-    """Move from a set of nodes across one relationship type."""
     src_type, dst_type = RELATIONSHIPS[relation]
     reached = set()
     for node in nodes:
@@ -55,7 +37,6 @@ def follow_path(g, start_nodes, path):
 
 
 def describe(g, node):
-    """Turn a node into a readable dict (adds related info for products/orders)."""
     data = g.nodes[node]
     row = {"type": data["node_type"]}
     row.update({k: v for k, v in data.items() if k != "node_type"})
@@ -98,14 +79,14 @@ def run_query(g, spec):
     validate_spec(spec)
     return_type = spec["return_type"]
 
-    result = None  # None means "no constraint applied yet"
+    result = None  
     for c in spec.get("constraints") or []:
         starts = find_nodes(g, c["node_type"], c["name"])
         reached = follow_path(g, starts, c.get("path") or [])
         reached = {n for n in reached if g.nodes[n]["node_type"] == return_type}
         result = reached if result is None else result & reached
 
-    if result is None:  # no constraints -> all nodes of that type
+    if result is None: 
         result = {n for n, d in g.nodes(data=True) if d["node_type"] == return_type}
 
     keyword = (spec.get("name_contains") or "").lower().strip()
