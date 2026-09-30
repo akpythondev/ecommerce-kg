@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from groq import Groq, BadRequestError
 
 load_dotenv()
-MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
 _client = None
 
 
@@ -15,7 +15,7 @@ def get_client():
     if _client is None:
         key = os.getenv("GROQ_API_KEY")
         if not key:
-            raise SystemExit("GROQ_API_KEY is missing. Copy .env.example to .env and add your key.")
+            raise SystemExit("GROQ_API_KEY is missing")
         _client = Groq(api_key=key, timeout=60.0, max_retries=3)
     return _client
 
